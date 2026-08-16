@@ -17,12 +17,42 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
+def get_database_config():
+    required_variables = [
+        "DB_HOST",
+        "DB_PORT",
+        "DB_NAME",
+        "DB_USER",
+        "DB_PASSWORD",
+    ]
+
+    missing_variables = [
+        variable
+        for variable in required_variables
+        if not os.getenv(variable)
+    ]
+
+    if missing_variables:
+        raise RuntimeError(
+            f"Missing required environment variables: {', '.join(missing_variables)}"
+        )
+
+    return {
+        "host": os.getenv("DB_HOST"),
+        "port": os.getenv("DB_PORT"),
+        "dbname": os.getenv("DB_NAME"),
+        "user": os.getenv("DB_USER"),
+        "password": os.getenv("DB_PASSWORD"),
+    }
+
 
 def fetch_events():
     try:
         response = requests.get("https://polisen.se/api/events", timeout=30)
         response.raise_for_status()
-        return response.json()
+        events = response.json()
+        validate_events(events)
+        return(events)
     except requests.RequestException as e:
         logger.error("API request failed: %s", e)
         raise
@@ -30,15 +60,21 @@ def fetch_events():
         logger.error("Invalid JSON received from Polisen API: %s", e)
         raise
 
+def validate_events(events):
+    if not isinstance(events, list):
+        raise ValueError("API response is not a list")
+
+    for event in events:
+        if not isinstance(event, dict):
+            raise ValueError("API response contains a non-object event")
+
+        if "id" not in event:
+            raise ValueError("Event is missing required field: id")
+
 def load_events(events):
+    db_config = get_database_config()
     try: 
-        with psycopg.connect(
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
-            dbname=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-        ) as connection: 
+        with psycopg.connect(**db_config) as connection: 
 
             inserted_count = 0
             skipped_count = 0
