@@ -1,0 +1,18 @@
+version: 2
+
+models: 
+  - name: dim_event_type
+    description: "Dimension containing unique event types"
+
+    columns:
+      - name: event_type_key
+        description: "Surrogate key for the event type"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: event_type
+        description: "Categorical event type provided by polismyndigheten"
+        data_tests:
+          - unique
+          - not_null
