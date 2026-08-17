@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: police
+    schema: raw
+    tables:
+      - name: police_events

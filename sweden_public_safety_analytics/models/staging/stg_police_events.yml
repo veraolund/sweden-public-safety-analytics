@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_police_events
+    description: "Staged police events extracted from the raw API payload"
+
+    columns:
+      - name: event_id
+        description: "Uniqe identifier assigned to the event by Polismyndigheten"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: event_datetime
+        description: "Date and time of the event"
+        data_tests:
+          - not_null
+
+      - name: event_type
+        description: "Categorical type of the event"
+        data_tests:
+          - not_null
