@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: dim_location
+    description: "Dimension for the event location (county) assigned by Polismyndigheten"
+
+    columns:
+      - name: location_key
+        description: "Surrogate key generated from location name and GPS coordinates"
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: location_name
+        description: "Name of the county"
+        data_tests:
+          - not_null
+      
+      - name: latitude
+        description: "Latitude extracted from GPS coordinates"
+        data_tests:
+          - not_null
+      
+      - name: longitude
+        description: "Longitude extracted from GPS coordinates"
+        data_tests:
+          - not_null
