@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Dimension for the dates present in the police event data"
+
+    columns:
+      - name: date_key
+        description: "YYYYMMDD integer uniqely identifying a date"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: date
+        description: "YYYY-MM-DD date"
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: year
+        description: "Extracted year, integer"
+        data_tests:
+          - not_null
+      
+      - name: month
+        description: "Extracted month, integer"
+        data_tests: 
+          - not_null
+
+      - name: day_of_week
+        descripton: "Extracted day, European ISO standard"
+        data_tests:
+         - not_null
