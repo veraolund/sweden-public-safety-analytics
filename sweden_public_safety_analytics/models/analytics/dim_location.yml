@@ -16,6 +16,11 @@ models:
         data_tests:
           - not_null
       
+      - name: location_gps
+        description: "Original GPS coordinates"
+        data_tests:
+          - not_null
+      
       - name: latitude
         description: "Latitude extracted from GPS coordinates"
         data_tests:

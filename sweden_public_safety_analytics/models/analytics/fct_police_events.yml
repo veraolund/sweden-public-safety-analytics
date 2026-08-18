@@ -1,0 +1,59 @@
+version: 2
+
+models: 
+  - name: fct_police_events
+    description: "Fact table with one row per reported police event"
+
+    columns:
+      - name: event_id
+        description: "Original event identifier"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: event_datetime
+        description: "Timestamp for the reported event"
+        data_tests:
+          - not_null
+
+      - name: event_name
+        description: "Original name of the event"
+        data_tests:
+          - not_null
+
+      - name: event_url
+        description: "URL to the event"
+        data_tests:
+          - not_null
+
+      - name: event_type_key
+        description: "Foreign key to dim_event_type"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_event_type')
+                field: event_type_key
+
+      - name: date_key
+        description: "Foreign key to dim_date"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: location_key
+        description: "Foreign key to dim_location"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: location_key
+
+      - name: ingested_at
+        description: "Timestamp for the loading into the raw table"
+        data_tests: 
+          - not_null
