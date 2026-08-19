@@ -31,3 +31,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   sweden_public_safety_analytics:
+    staging:
+      +materialized: view
+    
+    analytics:
+      +materialized: table
