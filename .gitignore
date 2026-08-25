@@ -1,7 +1,15 @@
+# python and environment
 .venv/
 __pycache__/
 *.pyc
-.DS_Store
-logs/
-target/
 .env
+
+# system files
+.DS_Store
+
+# logs
+logs/
+
+# dbt artifacts
+target/
+dbt_packages/
