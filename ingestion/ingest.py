@@ -4,12 +4,17 @@ import requests
 import logging
 from dotenv import load_dotenv
 from psycopg.types.json import Jsonb
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+LOG_DIR = PROJECT_ROOT / "logs"
+LOG_DIR.mkdir(exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
-        logging.FileHandler("logs/police_api.log"),
+        logging.FileHandler(LOG_DIR / "police_api.log"),
         logging.StreamHandler()
     ]
 )
@@ -52,7 +57,7 @@ def fetch_events():
         response.raise_for_status()
         events = response.json()
         validate_events(events)
-        return(events)
+        return events
     except requests.RequestException as e:
         logger.error("API request failed: %s", e)
         raise
