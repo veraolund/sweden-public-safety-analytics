@@ -25,11 +25,7 @@ The resulting Power BI dashboard provides an interactive overview of public safe
 - Traffic related events ("Trafikolycka", "Rattfylleri", "Trafikkontroll") are the most frequent distinct event types
 - The volume of published events varies over time, with Mondays and Thursdays showing the highest published event counts
 
-<table>
-  <tr>
-    <td><img src="assets/sweden_public_safety_dashboard.png" width="90%"></td>
-  </tr>
-</table>
+<img src="assets/sweden_public_safety_dashboard.png" width="80%">
 
 > Note: The data represents events selected and published by the Swedish Police Authority and does not reflect the actual distribution of all police events occurring across Sweden. Additionally, county-level comparisons are not adjusted for population size.
 
